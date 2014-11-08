@@ -12,13 +12,14 @@ if len(sys.argv) != 2:
 projects={}
 
 for line in open(sys.argv[1]):
-    m=re.search(r'project:"(.*?)"',line)
+    m=re.search(r'"project":"(.*?)"',line)
     if m!= None:
         project=m.group(1)
         r_str=rand_str()
         p_name=projects.get(project,r_str)
         projects[project]=r_str
-        line=re.sub(r'project:"(.*?)"','project:"' + p_name + '"',line)
-    line=re.sub(r'description:".*?"','description:"' + rand_str() +'"',line)
-    line=re.sub(r'annotation_(.*?):".*?"',r'annotation_\1:"' + rand_str() +'"',line)
+        line=re.sub(r'"project":"(.*?)"','"project":"' + p_name + '"',line)
+    line=re.sub(r'"description":"(.*?)"','"description":"' + rand_str() +'"',line)
+    line=re.sub(r'"tags":\["(.*?)"\]','"tags":["' + rand_str() +'"]',line)
+#    line=re.sub(r'annotation_(.*?):".*?"',r'annotation_\1:"' + rand_str() +'"',line)
     print line
